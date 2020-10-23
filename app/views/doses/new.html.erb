@@ -1,6 +1,21 @@
-<%= simple_form_for [@cocktail, @dose] do |f| %>
-  <%= f.input :description %>
-  <%= f.association :ingredient %>
-  <%= f.button :submit %>
-<% end %>
+<div class="background">
+  <%= render 'shared/navbar' %>
+  <div class="container my-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-8">
+        <div class="card-form">
+          <h2>Your new ingredient</h2>
+          <%= simple_form_for [@cocktail, @dose] do |f| %>
+            <%= f.input :description %>
+            <%= f.association :ingredient, input_html: { class: "beautiful-dropdown" }, include_hidden: false %>
+            <%= f.button :submit, value: "Create ingredient", class: "btn-orange w-100" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 

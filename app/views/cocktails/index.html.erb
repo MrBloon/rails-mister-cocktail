@@ -1,6 +1,22 @@
-<h1>List of cocktails</h1>
-<ul>
-  <% @cocktails.each do |cocktail| %>
-    <li><%= link_to cocktail.name, cocktail %></li>
-  <% end %>
-</ul>
+<div class="banner">
+  <%= render 'shared/navbar' %>
+  <div class="container text-center banner-center">
+    <h1>Mister cocktails</h1>
+    <p>Create your cocktails</p>
+    <%= link_to 'Add a cocktail', new_cocktail_path, class: "btn-orange"%>
+  </div>
+</div>
+
+
+<div class="container mb-4">
+  <div class="cards">
+    <% @cocktails.each do |cocktail| %>
+        <%= link_to cocktail_path(cocktail) do %>
+          <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.2)), url('https://source.unsplash.com/500x400/?cocktail');">
+            <p><%= cocktail.name%></p>
+          </div>
+        <% end %>
+    <% end %>
+  </div>
+</div>
+

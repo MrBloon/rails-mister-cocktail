@@ -1,0 +1,29 @@
+body {
+  background-color: $light-gray;
+  color: $gray;
+  font-size: 28px;
+  font-weight: bolder;
+}
+
+h1, h2, h3 {
+  font-family: $headers-font;
+}
+
+h1 {
+  font-size: 80px;
+}
+
+h2 {
+  font-size: 64px;
+}
+
+h3 {
+  font-size: 32px;
+}
+
+a {
+  color: &orange;
+  &:hover {
+    text-decoration: none;
+  }
+}

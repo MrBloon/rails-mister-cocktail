@@ -1,0 +1,15 @@
+<div class="p-3">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <%= link_to cocktails_path do %>
+        <i class="fas fa-cocktail" style="color: white;"></i>
+      <% end %>
+      <%= simple_form_for :search, url: root_path, method: "GET", html: {class: "form-inline"} do |f|  %>
+        <%= f.input :name, label: false, placeholder: "Search", input_html: {value: ""} %>
+        <%= button_tag type: 'submit', class: "button postfix border-0 d-flex align-items-center ml-1 bg-transparent" do %>
+            <i class="fas fa-search" style="color: white;"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
