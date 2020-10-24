@@ -5,19 +5,62 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Cocktail.create(name: "Mojito")
-Cocktail.create(name: "Black Russian")
-Cocktail.create(name: "Appletini")
-
 require 'json'
 require 'open-uri'
 
-url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
-hash_serialized = open(url).read
-ingredients = JSON.parse(hash_serialized)
+puts 'Cleaning Database :'
 
-ingredients["drinks"].each do |ingredient|
-  i = Ingredient.create(name: ingredient["strIngredient1"])
-  puts "create #{i.name}"
+puts 'Delete all doses'
+Dose.destroy_all
+
+puts 'Delete all ingredients'
+Ingredient.destroy_all
+
+puts 'Delete all cocktails'
+Cocktail.destroy_all
+
+url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
+ingredients = JSON.parse(open(url).read)["drinks"]
+
+puts 'Creating new ingredients'
+ingredients.each do |ingredient|
+  new_ingredient = Ingredient.create(name: ingredient['strIngredient1'])
 end
+
+puts 'Creating new cocktails'
+("a".."t").each do |letter|
+  url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=#{letter}"
+  drinks = JSON.parse(open(url).read)["drinks"]
+
+  drinks.each do |drink|
+    @cocktail = Cocktail.create(name: drink["strDrink"])
+
+    i = 1
+    ingredients = []
+    measures = []
+
+    until drink["strIngredient#{i}"].nil? || drink["strIngredient#{i}"] == ""
+      ingredients << drink["strIngredient#{i}"]
+      measures << drink["strMeasure#{i}"]
+      i += 1
+    end
+
+    ingredients.each_with_index do |ingredient, index|
+      if measures[index].nil?
+        dose = Dose.new(description: "unspecified")
+      else
+        dose = Dose.new(description: measures[index])
+      end
+      if Ingredient.find_by(name: ingredient).nil?
+        dose.ingredient = Ingredient.create(name: ingredient)
+      else
+        dose.ingredient = Ingredient.find_by(name: ingredient)
+      end
+      dose.cocktail = @cocktail
+      dose.save
+    end
+  end
+end
+
+puts 'success'
 
