@@ -3,7 +3,7 @@
   <div class="container mt-5">
     <div class="row">
       <div class="col-12">
-        <div class="card-product mb-3">
+        <div class="card-product mb-5">
           <h2><%= @cocktail.name %></h2>
           <div class="d-flex justify-content-between">
             <%= cl_image_tag @cocktail.photo.key %>
@@ -23,6 +23,29 @@
               <%= link_to 'Add an ingredient', new_cocktail_dose_path(@cocktail), class: "btn-orange align-self-start" %>
             </div>
           </div>
+          <div class="pt-5 px-3">
+            <p class="text-black-50"><%= @cocktail.description %></p>
+          </div>
+        </div>
+        <div class="card-form">
+          <% if @cocktail.reviews.empty? %>
+            <h3 class="mb-4">Be the first to leave a review !</h3>
+            <%= link_to 'Add a review', new_cocktail_review_path(@cocktail), class: "btn-orange align-self-start" %>
+          <% else %>
+            <ul class="list-group mb-4">
+              <% @cocktail.reviews.each do |review| %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span class="badge badge-primary badge-pill">
+                    <% review.rating.times do %>
+                      <i class="fa fa-star"></i>
+                    <% end %>
+                  </span>
+                  <p class="mb-0">"<%= review.content %>"</p>
+                </li>
+              <% end %>
+            </ul>
+            <%= link_to 'Add a review', new_cocktail_review_path(@cocktail), class: "btn-orange align-self-start" %>
+          <% end %>
         </div>
       </div>
     </div>

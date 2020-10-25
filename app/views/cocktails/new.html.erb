@@ -7,6 +7,7 @@
             <h2>Your new coctail</h2>
             <%= simple_form_for(@cocktail) do |f|%>
               <%= f.input :name %>
+              <%= f.input :description %>
               <%= f.input :photo, as: :file %>
               <%= f.button :submit, class: 'btn-orange w-100' %>
             <% end %>

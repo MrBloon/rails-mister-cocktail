@@ -1,0 +1,18 @@
+<div class="background">
+  <%= render 'shared/navbar' %>
+  <div class="container my-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-8">
+        <div class="card-form">
+          <h2>Your review</h2>
+          <%= simple_form_for [@cocktail, @review] do |f| %>
+            <%= f.input :content %>
+            <%= f.input :rating, collection: 1..5 %>
+            <%= f.button :submit, value: "Create review", class: "btn-orange w-100" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
