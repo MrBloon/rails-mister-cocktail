@@ -6,7 +6,7 @@
         <div class="card-product mb-3">
           <h2><%= @cocktail.name %></h2>
           <div class="d-flex justify-content-between">
-            <%= image_tag "black-russian.jpg" %>
+            <%= cl_image_tag @cocktail.photo.key %>
             <div class="d-flex flex-column justify-content-between w-100 ml-3">
               <div>
                 <% @cocktail.doses.each do |dose| %>

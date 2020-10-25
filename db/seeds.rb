@@ -16,6 +16,11 @@ Dose.destroy_all
 puts 'Delete all ingredients'
 Ingredient.destroy_all
 
+puts 'Delete all cocktails photos from cloudinary'
+Cocktail.all.each do |cocktail|
+  cocktail.photo.purge if cocktail.photo.attached?
+end
+
 puts 'Delete all cocktails'
 Cocktail.destroy_all
 
@@ -28,12 +33,16 @@ ingredients.each do |ingredient|
 end
 
 puts 'Creating new cocktails'
+
 ("a".."t").each do |letter|
   url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=#{letter}"
   drinks = JSON.parse(open(url).read)["drinks"]
 
   drinks.each do |drink|
-    @cocktail = Cocktail.create(name: drink["strDrink"])
+    file = URI.open(drink["strDrinkThumb"])
+    @cocktail = Cocktail.new(name: drink["strDrink"])
+    @cocktail.photo.attach(io: file, filename: 'cocktail.jpg')
+    @cocktail.save
 
     i = 1
     ingredients = []
@@ -62,5 +71,5 @@ puts 'Creating new cocktails'
   end
 end
 
-puts 'success'
+puts 'Success !!'
 

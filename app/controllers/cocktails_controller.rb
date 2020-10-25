@@ -4,7 +4,7 @@ class CocktailsController < ApplicationController
       @search = params['search']
       if @search.present?
         @name = @search['name']
-        @cocktails = Cocktail.where('name ILIKE ?', @name)
+        @cocktails = Cocktail.where('name ILIKE ?', "%#{@name}%")
       end
   end
 
@@ -28,6 +28,6 @@ class CocktailsController < ApplicationController
   private
 
   def cocktail_params
-    params.require(:cocktail).permit(:name)
+    params.require(:cocktail).permit(:name, :photo)
   end
 end
