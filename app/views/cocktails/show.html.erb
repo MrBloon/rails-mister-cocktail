@@ -1,35 +1,45 @@
 <div class="background">
   <%= render 'shared/navbar' %>
   <div class="container mt-5">
-    <div class="row">
-      <div class="col-12">
-        <div class="card-product mb-5">
+    <div class="card-product">
+      <div class="row">
+        <div class="col-12">
           <h2><%= @cocktail.name %></h2>
-          <div class="d-flex justify-content-between">
-            <%= cl_image_tag @cocktail.photo.key %>
-            <div class="d-flex flex-column justify-content-between w-100 ml-3">
-              <div>
-                <% @cocktail.doses.each do |dose| %>
-                  <li class="list-group-item d-flex justify-content-between">
-                    <div>
-                      <%= dose.ingredient.name %> - <%= dose.description %>
-                    </div>
-                    <%= link_to dose_path(dose), method: :delete, data: { confirm: "Are you sure?" } do %>
-                      <i class="fa fa-trash destroy_dose"></i>
-                    <% end %>
-                  </li>
-                <% end %>
-              </div>
-              <%= link_to 'Add an ingredient', new_cocktail_dose_path(@cocktail), class: "btn-orange align-self-start" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-lg-5 mb-5">
+          <%= cl_image_tag @cocktail.photo.key %>
+        </div>
+        <div class="col-12 col-lg-7">
+          <div class="d-flex flex-column">
+            <div>
+              <% @cocktail.doses.each do |dose| %>
+                <li class="list-group-item d-flex justify-content-between">
+                  <div>
+                    <%= dose.ingredient.name %> - <%= dose.description %>
+                  </div>
+                  <%= link_to dose_path(dose), method: :delete, data: { confirm: "Are you sure?" } do %>
+                    <i class="fa fa-trash destroy_dose"></i>
+                  <% end %>
+                </li>
+              <% end %>
             </div>
-          </div>
-          <div class="pt-5 px-3">
-            <p class="text-black-50"><%= @cocktail.description %></p>
+            <%= link_to 'Add an ingredient', new_cocktail_dose_path(@cocktail), class: "btn-orange align-self-start mt-3" %>
           </div>
         </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mt-4">
+          <p class="text-black-50"><%= @cocktail.description %></p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
         <div class="card-form">
           <% if @cocktail.reviews.empty? %>
-            <h3 class="mb-4">Be the first to leave a review !</h3>
+            <h3 class="mb-5">Be the first to leave a review !</h3>
             <%= link_to 'Add a review', new_cocktail_review_path(@cocktail), class: "btn-orange align-self-start" %>
           <% else %>
             <ul class="list-group mb-4">
@@ -51,4 +61,10 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
 

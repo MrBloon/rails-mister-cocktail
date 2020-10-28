@@ -43,7 +43,6 @@ puts 'Creating new cocktails'
     @cocktail = Cocktail.new(name: drink["strDrink"], description: drink["strInstructions"])
     @cocktail.photo.attach(io: file, filename: 'cocktail.jpg')
     @cocktail.save
-    p @cocktail.valid?
 
     i = 1
     ingredients = []

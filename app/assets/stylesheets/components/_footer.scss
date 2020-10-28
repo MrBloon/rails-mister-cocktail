@@ -1,8 +1,11 @@
 .footer {
+ background-color: $green;
+}
+
+.footer-card {
   height: 80px;
-  background-color: $green;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 0 48px;
   p {
